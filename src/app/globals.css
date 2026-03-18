@@ -1,0 +1,181 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #080c0f;
+  --bg-secondary: #0d1117;
+  --bg-tertiary: #141b22;
+  --bg-elevated: #1c2433;
+  --accent-teal: #14b8a6;
+  --accent-teal-dim: #0d7a70;
+  --text-primary: #f0f4f8;
+  --text-secondary: #8b9eb0;
+  --text-tertiary: #4a5a6a;
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-default: rgba(255, 255, 255, 0.10);
+  --buy-color: #22c55e;
+  --sell-color: #ef4444;
+  --warn-color: #f59e0b;
+
+  --font-geist-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  --font-jetbrains-mono: 'JetBrains Mono', 'Monaco', 'Courier New', monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-geist-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#__next {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  flex-direction: column;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-geist-sans);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code,
+pre,
+.price,
+.mono {
+  font-family: var(--font-jetbrains-mono);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #1c2433;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #2a3544;
+}
+
+scrollbar-width: thin;
+scrollbar-color: #1c2433 transparent;
+
+/* Inputs */
+input,
+select,
+textarea {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-family: var(--font-geist-sans);
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+  border-color: var(--border-default);
+  background-color: var(--bg-elevated);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent-teal);
+  box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.1);
+}
+
+/* Buttons */
+button {
+  font-family: var(--font-geist-sans);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  border-radius: 6px;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes slide-down {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes flash {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgba(234, 179, 8, 0.3);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid var(--accent-teal);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(20, 184, 166, 0.3);
+  color: var(--text-primary);
+}
