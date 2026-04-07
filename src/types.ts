@@ -40,7 +40,7 @@ export interface TickerData {
 
 export type Timeframe = typeof TIMEFRAMES[number];
 export type ViewMode = typeof VIEW_MODES[number];
-export type Symbol = typeof SYMBOLS[number];
+export type TickerSymbol = typeof SYMBOLS[number];
 
 export interface StoreState {
   heatmapBins: Map<number, HeatmapBin>;
@@ -49,7 +49,7 @@ export interface StoreState {
   priceHistory: KlineData[];
   timeframe: Timeframe;
   viewMode: ViewMode;
-  activeSymbol: Symbol;
+  activeSymbol: TickerSymbol;
   wsStatus: 'connected' | 'connecting' | 'disconnected' | 'error';
   tradesPerSecond: number;
   totalVolume24h: number;
@@ -59,7 +59,7 @@ export interface StoreState {
   addTrade: (trade: Trade) => void;
   setTimeframe: (tf: Timeframe) => void;
   setViewMode: (mode: ViewMode) => void;
-  setSymbol: (symbol: Symbol) => void;
+  setSymbol: (symbol: TickerSymbol) => void;
   setWsStatus: (status: StoreState['wsStatus']) => void;
   updateMetrics: (volume: number, change: number, flow: 'buy' | 'sell' | 'neutral') => void;
   clearData: () => void;

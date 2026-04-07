@@ -1,5 +1,11 @@
 import type { Metadata } from 'next';
+import { JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains-mono',
+});
 
 export const metadata: Metadata = {
   title: 'CryptoFlow Trading Dashboard',
@@ -13,13 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="bg-[#080c0f] text-[#f0f4f8]">
+      <body className={`${jetbrainsMono.variable} bg-[#080c0f] text-[#f0f4f8]`}>
         {children}
       </body>
     </html>

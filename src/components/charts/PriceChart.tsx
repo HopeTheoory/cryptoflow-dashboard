@@ -7,6 +7,7 @@ import {
   IChartApi,
   ISeriesApi,
   LineSeriesPartialOptions,
+  Time,
 } from 'lightweight-charts';
 
 const PriceChart: React.FC<{ width: number; height: number }> = ({
@@ -53,7 +54,7 @@ const PriceChart: React.FC<{ width: number; height: number }> = ({
 
     if (priceHistory.length > 0) {
       const data = priceHistory.map((kline) => ({
-        time: kline.time as any,
+        time: Math.floor(kline.time / 1000) as Time,
         value: kline.close,
       }));
       lineSeries.setData(data);
@@ -79,16 +80,18 @@ const PriceChart: React.FC<{ width: number; height: number }> = ({
     };
   }, [width, height]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (seriesRef.current && priceHistory.length > 0) {
       const data = priceHistory.map((kline) => ({
-        time: kline.time as any,
+        time: Math.floor(kline.time / 1000) as Time,
         value: kline.close,
       }));
       seriesRef.current.setData(data);
       chartRef.current?.timeScale().fitContent();
     }
-  }, [priceHistory]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [priceHistory.length]);
 
   return (
     <div

@@ -6,6 +6,7 @@ import {
   createChart,
   IChartApi,
   LineSeriesPartialOptions,
+  Time,
 } from 'lightweight-charts';
 import { BUCKETS } from '@/constants';
 
@@ -52,7 +53,7 @@ const CVDPanel: React.FC<{ width: number; height: number }> = ({
       } as LineSeriesPartialOptions);
 
       const data = cvdSeries[key as keyof typeof BUCKETS].map((point) => ({
-        time: Math.floor(point.time / 1000) as any,
+        time: Math.floor(point.time / 1000) as Time,
         value: point.value,
       }));
 
@@ -81,12 +82,14 @@ const CVDPanel: React.FC<{ width: number; height: number }> = ({
     };
   }, [width, height]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (!chartRef.current) return;
 
     const chart = chartRef.current;
     chart.timeScale().fitContent();
-  }, [cvdSeries, viewMode]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [viewMode]);
 
   return (
     <div

@@ -1,10 +1,9 @@
-import { KlineData, TickerData } from '@/types';
-import { Symbol } from '@/types';
+import { KlineData, TickerData, TickerSymbol } from '@/types';
 
 const BINANCE_API = 'https://api.binance.com/api/v3';
 
 export async function fetchKlines(
-  symbol: Symbol,
+  symbol: TickerSymbol,
   interval: string = '1m',
   limit: number = 500
 ): Promise<KlineData[]> {
@@ -16,15 +15,15 @@ export async function fetchKlines(
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data: number[][] = await response.json();
 
-    return data.map((kline: any[]) => ({
+    return data.map((kline: number[]) => ({
       time: Math.floor(kline[0] / 1000),
-      open: parseFloat(kline[1]),
-      high: parseFloat(kline[2]),
-      low: parseFloat(kline[3]),
-      close: parseFloat(kline[4]),
-      volume: parseFloat(kline[7]),
+      open: kline[1],
+      high: kline[2],
+      low: kline[3],
+      close: kline[4],
+      volume: kline[7],
     }));
   } catch (err) {
     console.error('Error fetching klines:', err);
@@ -32,7 +31,7 @@ export async function fetchKlines(
   }
 }
 
-export async function fetch24hTicker(symbol: Symbol): Promise<TickerData | null> {
+export async function fetch24hTicker(symbol: TickerSymbol): Promise<TickerData | null> {
   try {
     const url = `${BINANCE_API}/ticker/24hr?symbol=${symbol}`;
     const response = await fetch(url);

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState, useMemo } from 'react';
+import React, { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import { useStore } from '@/store/useStore';
 import chroma from 'chroma-js';
 import { PRICE_BIN_SIZE, MAX_BINS } from '@/constants';
@@ -67,7 +67,7 @@ const HeatmapChart: React.FC<{ width: number; height: number }> = ({
     };
   }, [getBinArray]);
 
-  const render = () => {
+  const render = useCallback(() => {
     const now = performance.now();
     if (now - lastRenderRef.current < 1000 / 10) {
       animationFrameRef.current = requestAnimationFrame(render);
@@ -155,7 +155,7 @@ const HeatmapChart: React.FC<{ width: number; height: number }> = ({
     }
 
     animationFrameRef.current = requestAnimationFrame(render);
-  };
+  }, [dimensions, getBinArray, priceRange, currentPrice, colorScale]);
 
   useEffect(() => {
     animationFrameRef.current = requestAnimationFrame(render);
@@ -164,6 +164,7 @@ const HeatmapChart: React.FC<{ width: number; height: number }> = ({
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dimensions, getBinArray, priceRange, currentPrice, colorScale]);
 
   return (

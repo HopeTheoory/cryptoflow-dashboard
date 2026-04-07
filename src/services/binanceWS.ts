@@ -1,17 +1,17 @@
 import { useStore } from '@/store/useStore';
 import { processTrade } from './dataProcessor';
-import { Symbol } from '@/types';
+import { TickerSymbol } from '@/types';
 
 class BinanceWSService {
   private ws: WebSocket | null = null;
-  private symbol: Symbol = 'BTCUSDT';
+  private symbol: TickerSymbol = 'BTCUSDT';
   private reconnectDelay = 1000;
   private maxDelay = 30000;
   private maxRetries = 10;
   private retryCount = 0;
   private isManualClose = false;
 
-  connect(symbol: Symbol): void {
+  connect(symbol: TickerSymbol): void {
     this.symbol = symbol;
     this.isManualClose = false;
     this.retryCount = 0;
